@@ -1,21 +1,4 @@
-const fs = require('fs')
-
-const wordsToRemove = require('./words-to-remove')
-
-
-fs.readFile('sample-texts/alice-in-wonderland.txt', 'utf-8', (err, data) => {
-    if (err) { console.log(err) }
-
-    const text = cleanText(data, wordsToRemove)
-    const words = getEveryWordCount(text)
-
-    fs.writeFile('output/words.json', JSON.stringify(words), (err, data) => {
-        if (err) { console.log(err) }
-        console.log("Written!")
-    })
-})
-
-function cleanText(text, wordsToRemove) {
+export function cleanText(text, wordsToRemove) {
     const replacedText = text
         .replace(/\b[’']ll\b/gi, ' will')
         .replace(/\b[’']ve\b/gi, ' have')
@@ -25,7 +8,7 @@ function cleanText(text, wordsToRemove) {
     return replacedText.replace(regexRemove, '')
 }
 
-function getEveryWordCount (text) {
+export function getEveryWordCount (text) {
     const regex = /[a-zA-Z]{2,}[’-]?\w*/gi
 
     const words = text.match(regex)
