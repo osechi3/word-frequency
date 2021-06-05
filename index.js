@@ -2,7 +2,7 @@ import { cleanText, getEveryWordCount } from './app.js'
 import wordsToRemove from './words-to-remove.js'
 
 const textUploader = document.getElementById('text-uploader')
-const wordList = document.querySelector('.word-list')
+const wordContainer = document.querySelector('.word-container')
 
 
 const reader = new FileReader()
@@ -16,10 +16,20 @@ function handleFile () {
 
 function displayWords (words) {
     for (let i = 0; i < 100; i++) {
-        const entry = document.createElement('li')
+        const entry = document.createElement('div')
         entry.classList.add('entry')
-        entry.textContent = words[i][0] + ' : ' + words[i][1]
-        wordList.append(entry)
+
+        const frequency = document.createElement('div')
+        frequency.classList.add('entry__frequency')
+        frequency.textContent = '#' + words[i][1]
+        entry.append(frequency)
+
+        const word = document.createElement('div')
+        word.classList.add('entry__word')
+        word.textContent = words[i][0]
+        entry.append(word)
+
+        wordContainer.append(entry)
     }
 }
 
